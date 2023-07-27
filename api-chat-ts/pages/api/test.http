@@ -1,0 +1,23 @@
+http://localhost:3000/api/messages
+
+###
+POST http://localhost:3000/api/messages
+content-type:application/json
+
+{ 
+    "text":"Hello World2",
+    "pfp":"https://clerk.com/_next/image?url=%2Fimages%2Fclerk-logo.svg&w=256&q=75"
+}
+
+### 
+
+DELETE http://localhost:3000/api/messages/64b8cc329e55238012559b23
+
+###
+
+PUT   http://localhost:3000/api/messages/64b8cd899e55238012561091
+content-type:application/json
+
+{
+    "text": "Hello world4"
+}

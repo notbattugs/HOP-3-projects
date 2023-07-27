@@ -1,0 +1,6 @@
+{
+  "dependencies": {
+    "@ably-labs/react-hooks": "^2.1.1",
+    "use-interval": "^1.4.0"
+  }
+}

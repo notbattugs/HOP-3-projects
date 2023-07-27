@@ -1,0 +1,9 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --accent-brand-lighter-rgb: 80, 99, 301;
+  --accent-brand-rgb: 59, 73, 223;
+  --accent-brand-darker-rgb: 47, 58, 178;
+}

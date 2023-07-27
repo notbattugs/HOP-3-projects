@@ -1,0 +1,25 @@
+
+http://localhost:3000/api/get-posts
+
+###
+POST http://localhost:3000/api/create-posts
+content-type:application/json
+
+{ 
+    "name":"RandomGuy",
+    "text":"Hello World"
+}
+
+### 
+DELETE http://localhost:3000/api/delete-posts?id=649a61466e778d98e5fad093
+
+###
+
+PUT   http://localhost:3000/api/update-posts?id=649e60e0f36a7f286e14c3ff
+content-type:application/json
+
+{
+    "text": "hiww"
+}
+
+

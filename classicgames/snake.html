@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Snake</title>
+    <style>
+      #area {
+        width: 500px;
+        height: 500px;
+        background-color: aqua;
+        position: relative;
+      }
+      #head {
+        background-color: black;
+        width: 100px;
+        height: 100px;
+        position: absolute;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="area">
+      <div id="head"></div>
+    </div>
+
+    <button onclick="changeDir('right')">Right</button>
+    <button onclick="changeDir('down')">Down</button>
+    <script>
+      const areawidth = 30;
+      const areaHeight = 30;
+      let direction = 'down';
+      const zoom = 10;
+      const area = document.getElementById('area');
+      area.style.width = `${areawidth * zoom}px`;
+      area.style.height = `${areaheight * zoom}px`;
+      let snake = [
+        { left: 0, top: 0 },
+        { left: 0, top: 0 },
+      ];
+      const head = document.getElementById('head');
+      head.style.height = `${zoom}px`;
+      head.style.width = `${zoom}px`;
+      function ChangeDir(dir) {
+        direction = dir;
+      }
+      function goRight() {
+        snake[0].left = snake[0].left + 1;
+        if (snake[0].left > areawidth - 1) {
+          snake[0].left = 0;
+        }
+        head.style.left = `${snake[0].left * zoom}px`;
+      }
+      function goDown() {
+        snake[0].top = snake[0].top + 1;
+        if (snake[0].top > areawidth - 1) {
+          snake[0].top = 0;
+        }
+        head.style.top = `${snake[0].top * Zoom}px`;
+        let snakeBody = '';
+        setInterval(function () {
+          switch (direction) {
+            case 'right':
+              goRight();
+              break;
+            case 'down':
+              goDown();
+              break;
+          }
+        }, 500);
+      }
+    </script>
+  </body>
+</html>
+<!-- <!DOCTYPE html> <html> chead>
+«style>
+#area {
+background-color: aqua;
+position: relative;
+thead {
+background-color: black;
+position: absolute;
+</style> </heads <body>
+«div id="area"s
+<div id="head"></div> </div>
+«button onclick="changeDir('right')">Right</button> «button onclick-"changeDir ('down'); ">Down</buttons
+«script>
+const areawidth = 30;
+const areaHeight = 30;
+let direction = 'down'; // down, left, up, right
+const zoom = 10;
+const area = document .getElementById('area') ;
+area. style.width = '$(areawidth * zoom)px*;
+area. style. height
+'S{areaHeight * zoom)px*
+let snake =
+{ left: 0, top:
+a lett: 0, top: 0
+const head = document.getElementById( 'head') ;
+head.style.width = '$(zoom)px*;
+head. style. height = $(zoom) px*
+function changeDir(dir) {
+direction = dir;
+function goRight) {
+snake[0].left = snake [0].left + 1
+if (snake [0]. left > areawidth - 1) {
+snake [0]. left = I
+head.style. left
+S{snake [0].left * zoom}px*
+function goDown () {
+snake [0].top = snake [0]. top + 1;
+if (snake [0]. top > areawidth - 1) {
+snake o.top = 0;
+head.style. top = '${snake (0]. top * Zoom)px*
+Let snakeBody =
+for (i = 0; i < snake. length; i++) {
+snakeBody = snakeBody
+<div class-"snake" style="width: $(zoom)px; height: ${zoom)px; left: ${snake [il. left)px; top: $(snake [il.top)px"></di
+console. log ({ snakeBody });
+document.getElementById ('area'). innerHTML = snakeBody;
+setInterval(function () {
+switch (direction)
+case 'right': goRight ();
+break;
+casedown's
+goDown);
+break;
+1, 500);
+</script> </body>
+</htmls -->

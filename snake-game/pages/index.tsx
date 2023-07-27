@@ -1,9 +1,12 @@
-import { useEffect, useState, useRef } from 'react';
-import useInterval from 'use-interval';
-import { useRouter } from 'next/router';
-import Swal from 'sweetalert2';
-import 'sweetalert2/src/sweetalert2.scss';
-
+import { useEffect, useState, useRef } from "react";
+import useInterval from "use-interval";
+import { useRouter } from "next/router";
+import Swal from "sweetalert2";
+import "sweetalert2/src/sweetalert2.scss";
+import InputLabel from "@mui/material/InputLabel";
+import MenuItem from "@mui/material/MenuItem";
+import FormControl from "@mui/material/FormControl";
+import Select, { SelectChangeEvent } from "@mui/material/Select";
 const zoom = 20;
 const areaWidth = 30;
 const areaHeight = 30;
@@ -11,8 +14,8 @@ const areaHeight = 30;
 export default function Home() {
   const router = useRouter();
   const [body, setBody] = useState([
-    { top: 1, left: 5 },
-    { top: 2, left: 5 },
+    { top: 1, left: 5 ,img:'https://play-lh.googleusercontent.com/TUtOJfxHm78ggM9Ssl2iAO2sDXeJ5rYauo_TTc9SiUsscHppl_TydsCwDoyZhfDv5qM'},
+    { top: 2, left: 5 ,img:'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRUSlhO6eu_bpwExeePnx_5tBmdjgYBfYIXYcxFLnIQ&s'},
     // { top: 3, left: 5 },
     // { top: 4, left: 5 },
     // { top: 5, left: 5 },
@@ -38,77 +41,76 @@ export default function Home() {
     // { top: 25, left: 5 },
     // { top: 26, left: 5 },
   ]);
-  const [direction, setDirection] = useState('right');
+  const [direction, setDirection] = useState("right");
   const [food, setFood] = useState({ top: 0, left: 5 });
   const [score, setScore] = useState(0);
-  const [highScore, SetHighScore] = useState([{ score: 0 }]);
-  console.log(highScore);
+  const [highScore, SetHighScore] = useState("");
+  const [speed, setSpeed] = useState(10);
+  const Levels = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12];
+const Walls=[3,9,23]
   function GameOver() {
     for (let i = 1; i < body.length; i++) {
       if (body[i].top === body[0].top && body[i].left === body[0].left) {
         Swal.fire({
-          title: 'Error!',
-          text: 'Game Over ~ You Lost HAHAHAHAHAHAHAHAHAHAH',
-          icon: 'error',
-          confirmButtonText: 'Cool',
+          title: "Error!",
+          text: "Game Over ~ You Lost HAHAHAHAHAHAHAHAHAHAH",
+          icon: "error",
+          confirmButtonText: "Cool",
         });
+        if (score > window.localStorage.getItem("score")) {
+          window.localStorage.setItem("score", score);
+        }
         router.reload();
-        SetHighScore([...highScore, score]);
       }
     }
-  }
-  function highScoreFinder() {
-    const [max, setMax] = useState(highScore[0]);
-    for (let i = 1; i < highScore.length; i++) {
-      if (highScore[i] > max) {
-        setMax(highScore[i]);
-      }
-    }
-    localStorage.setItem('highScore', `${max}`);
   }
 
+  const handleChange = (event: SelectChangeEvent) => {
+    setSpeed(event.target.value);
+  };
   useEffect(() => {
-    window.addEventListener('keydown', (e) => {
+    SetHighScore(window.localStorage.getItem("score"));
+    window.addEventListener("keydown", (e) => {
       setDirection((prevDirecation) => {
         switch (e.code) {
-          case 'ArrowDown':
-            if (prevDirecation !== 'up') {
-              return 'down';
+          case "ArrowDown":
+            if (prevDirecation !== "up") {
+              return "down";
             }
             break;
-          case 's':
-            if (prevDirecation !== 'up') {
-              return 'down';
+          case "s":
+            if (prevDirecation !== "up") {
+              return "down";
             }
             break;
-          case 'ArrowRight':
-            if (prevDirecation !== 'left') {
-              return 'right';
+          case "ArrowRight":
+            if (prevDirecation !== "left") {
+              return "right";
             }
             break;
-          case 'd':
-            if (prevDirecation !== 'left') {
-              return 'right';
+          case "d":
+            if (prevDirecation !== "left") {
+              return "right";
             }
             break;
-          case 'ArrowUp':
-            if (prevDirecation !== 'down') {
-              return 'up';
+          case "ArrowUp":
+            if (prevDirecation !== "down") {
+              return "up";
             }
             break;
-          case 'w':
-            if (prevDirecation !== 'down') {
-              return 'up';
+          case "w":
+            if (prevDirecation !== "down") {
+              return "up";
             }
             break;
-          case 'ArrowLeft':
-            if (prevDirecation !== 'right') {
-              return 'left';
+          case "ArrowLeft":
+            if (prevDirecation !== "right") {
+              return "left";
             }
             break;
-          case 'a':
-            if (prevDirecation !== 'right') {
-              return 'left';
+          case "a":
+            if (prevDirecation !== "right") {
+              return "left";
             }
             break;
         }
@@ -168,37 +170,37 @@ export default function Home() {
   }
   useInterval(() => {
     switch (direction) {
-      case 'right':
+      case "right":
         goRight();
         break;
-      case 'left':
+      case "left":
         goLeft();
         break;
-      case 'up':
+      case "up":
         goUp();
         break;
-      case 'down':
+      case "down":
         goDown();
         break;
     }
     if (body[0].top === food.top && body[0].left === food.left) {
       GenFood();
-      if (direction == 'up') {
+      if (direction == "up") {
         setBody([...body, { top: body[0].top + 1, left: body[0].left }]);
       }
-      if (direction == 'down') {
+      if (direction == "down") {
         setBody([...body, { top: body[0].top - 1, left: body[0].left }]);
       }
-      if (direction == 'right') {
+      if (direction == "right") {
         setBody([...body, { top: body[0].top, left: body[0].left + 1 }]);
       }
-      if (direction == 'left') {
+      if (direction == "left") {
         setBody([...body, { top: body[0].top, left: body[0].left - 1 }]);
       }
       setScore(score + 1);
     }
     GameOver();
-  }, 100);
+  }, 1000 / speed);
 
   return (
     <main
@@ -206,11 +208,31 @@ export default function Home() {
     >
       <div className="w-[400px] flex justify-around items-between">
         <p className="text-black"> Оноо : {score}</p>
-        <p className="text-black">Дээд оноo : </p>
+        <p className="text-black">Дээд оноo : {highScore} </p>
+      </div>
+   
+      <div className="w-[400px] flex justify-around items-between">
+       <FormControl fullWidth>
+        <InputLabel id="demo-simple-select-label">speed</InputLabel>
+        <Select
+          labelId="demo-simple-select-label"
+          id="demo-simple-select"
+          value={speed}
+          label="speed"
+          onChange={handleChange}
+        >
+          {Levels.map((e) => (
+            <MenuItem value={e}>Level {e}</MenuItem>
+          ))}
+        </Select>
+      </FormControl>
       </div>
       <div
-        className="relative bg-slate-300 "
-        style={{ width: areaWidth * zoom, height: areaHeight * zoom }}
+        className="relative bg-slate-300"
+        style={{ width: areaWidth * zoom, height: areaHeight * zoom ,display:'grid',  
+        gridTemplateColumns:" repeat(30, 70px)",
+        gridTemplateRows:" 40px repeat(30, 70px) 40px",
+        border:"1px solid #462921"}}
       >
         <img
           src="https://clipart-library.com/img/1565435.png"
@@ -223,18 +245,10 @@ export default function Home() {
             height: zoom,
           }}
         />
-        {/* <div
-          className="absolute rounded bg-red-700"
-          style={{
-            top: food.top * zoom,
-            left: food.left * zoom,
-            width: zoom,
-            height: zoom,
-          }}
-        ></div> */}
+ 
         {body.map((segment, index) => (
           <div
-            className="absolute rounded-s bg-green-700"
+            className="absolute bg-green-800  "
             style={{
               top: segment.top * zoom,
               left: segment.left * zoom,
@@ -243,10 +257,12 @@ export default function Home() {
               // backgroundImage: `url('${segment.img}')`,
               // backgroundPosition: 'center',
               // backgroundRepeat: 'no-repeat',
+              // backgroundSize:'cover'
             }}
             key={index}
           ></div>
         ))}
+       
       </div>
     </main>
   );

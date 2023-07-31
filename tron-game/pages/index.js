@@ -14,15 +14,49 @@ const areaHeight = 30;
 export default function Home() {
   const router = useRouter();
   const [body, setBody] = useState([
-    { top: 1, left: 5 ,img:'https://play-lh.googleusercontent.com/TUtOJfxHm78ggM9Ssl2iAO2sDXeJ5rYauo_TTc9SiUsscHppl_TydsCwDoyZhfDv5qM'},
-    { top: 2, left: 5 ,img:'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRUSlhO6eu_bpwExeePnx_5tBmdjgYBfYIXYcxFLnIQ&s'},
-    // { top: 3, left: 5 },
-    // { top: 4, left: 5 },
-    // { top: 5, left: 5 },
-    // { top: 6, left: 5 },
-    // { top: 7, left: 5 },
-    // { top: 8, left: 5 },
-    // { top: 9, left: 5 },
+    { top: 1, left: 5 },
+    { top: 2, left: 5 },
+    { top: 3, left: 5 },
+    { top: 4, left: 5 },
+    { top: 5, left: 5 },
+    { top: 6, left: 5 },
+    { top: 7, left: 5 },
+    { top: 8, left: 5 },
+    { top: 9, left: 5 },
+    // { top: 10, left: 5 },
+    // { top: 11, left: 5 },
+    // { top: 12, left: 5 },
+    // { top: 13, left: 5 },
+    // { top: 14, left: 5 },
+    // { top: 15, left: 5 },
+    // { top: 16, left: 5 },
+    // { top: 17, left: 5 },
+    // { top: 18, left: 5 },
+    // { top: 19, left: 5 },
+    // { top: 20, left: 5 },
+    // { top: 21, left: 5 },
+    // { top: 22, left: 5 },
+    // { top: 23, left: 5 },
+    // { top: 24, left: 5 },
+    // { top: 25, left: 5 },
+    // { top: 26, left: 5 },
+  ]);
+  const [bodyT, setBodyT] = useState([
+    {
+      top: 81,
+      left: 5,
+    },
+    {
+      top: 82,
+      left: 5,
+    },
+    { top: 83, left: 5 },
+    { top: 84, left: 5 },
+    { top: 85, left: 5 },
+    { top: 86, left: 5 },
+    { top: 87, left: 5 },
+    { top: 88, left: 5 },
+    { top: 89, left: 5 },
     // { top: 10, left: 5 },
     // { top: 11, left: 5 },
     // { top: 12, left: 5 },
@@ -46,26 +80,24 @@ export default function Home() {
   const [score, setScore] = useState(0);
   const [highScore, SetHighScore] = useState("");
   const [speed, setSpeed] = useState(10);
-  const Levels = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12];
-const Walls=[3,9,23]
   function GameOver() {
-    for (let i = 1; i < body.length; i++) {
-      if (body[i].top === body[0].top && body[i].left === body[0].left) {
-        Swal.fire({
-          title: "Error!",
-          text: "Game Over ~ You Lost HAHAHAHAHAHAHAHAHAHAH",
-          icon: "error",
-          confirmButtonText: "Cool",
-        });
-        if (score > window.localStorage.getItem("score")) {
-          window.localStorage.setItem("score", score);
-        }
-        router.reload();
-      }
-    }
+    // for (let i = 1; i < body.length; i++) {
+    //   if (body[i].top === body[0].top && body[i].left === body[0].left) {
+    //     Swal.fire({
+    //       title: "Error!",
+    //       text: "Game Over ~ You Lost HAHAHAHAHAHAHAHAHAHAH",
+    //       icon: "error",
+    //       confirmButtonText: "Cool",
+    //     });
+    //     if (score > window.localStorage.getItem("score")) {
+    //       window.localStorage.setItem("score", score);
+    //     }
+    //     router.reload();
+    //   }
+    // }
   }
 
-  const handleChange = (event: SelectChangeEvent) => {
+  const handleChange = (event) => {
     setSpeed(event.target.value);
   };
   useEffect(() => {
@@ -125,8 +157,8 @@ const Walls=[3,9,23]
   }
   function goRight() {
     const newBody = [...body];
-
-    newBody.pop();
+    const newBode = [...bodyT];
+    // newBody.pop();
     let newLeft = newBody[0].left + 1;
     if (newLeft > areaWidth - 1) {
       newLeft = 0;
@@ -136,8 +168,8 @@ const Walls=[3,9,23]
   }
   function goLeft() {
     const newBody = [...body];
-
-    newBody.pop();
+    const newBode = [...bodyT];
+    // newBody.pop();
     let newLeft = newBody[0].left - 1;
     if (newLeft < 0) {
       newLeft = areaWidth - 1;
@@ -147,8 +179,8 @@ const Walls=[3,9,23]
   }
   function goDown() {
     const newBody = [...body];
-
-    newBody.pop();
+    const newBode = [...bodyT];
+    // newBody.pop();
     let newTop = newBody[0].top + 1;
     if (newTop > areaHeight - 1) {
       newTop = 0;
@@ -159,10 +191,12 @@ const Walls=[3,9,23]
 
   function goUp() {
     const newBody = [...body];
-
-    newBody.pop();
+    const newBode = [...bodyT];
+    // newBody.pop();
     let newTop = newBody[0].top - 1;
-    if (newTop < 0) {
+    let newTop1 = newBode[0].top - 1;
+
+    if (newTop < 0 || newTop1 < 0) {
       newTop = areaHeight - 1;
     }
     newBody.unshift({ ...newBody[0], top: newTop });
@@ -184,7 +218,7 @@ const Walls=[3,9,23]
         break;
     }
     if (body[0].top === food.top && body[0].left === food.left) {
-      GenFood();
+      // GenFood();
       if (direction == "up") {
         setBody([...body, { top: body[0].top + 1, left: body[0].left }]);
       }
@@ -206,33 +240,37 @@ const Walls=[3,9,23]
     <main
       className={`flex min-h-screen flex-col items-center justify-between p-24 bg-slate-200`}
     >
-      <div className="w-[400px] flex justify-around items-between">
+      {/* <div className="w-[400px] flex justify-around items-between">
         <p className="text-black"> Оноо : {score}</p>
         <p className="text-black">Дээд оноo : {highScore} </p>
       </div>
-   
+
       <div className="w-[400px] flex justify-around items-between">
-       <FormControl fullWidth>
-        <InputLabel id="demo-simple-select-label">speed</InputLabel>
-        <Select
-          labelId="demo-simple-select-label"
-          id="demo-simple-select"
-          value={speed}
-          label="speed"
-          onChange={handleChange}
-        >
-          {Levels.map((e) => (
-            <MenuItem value={e}>Level {e}</MenuItem>
-          ))}
-        </Select>
-      </FormControl>
-      </div>
+        <FormControl fullWidth>
+          <InputLabel id="demo-simple-select-label">speed</InputLabel>
+          <Select
+            labelId="demo-simple-select-label"
+            id="demo-simple-select"
+            value={speed}
+            label="speed"
+            onChange={handleChange}
+          >
+            {Levels.map((e) => (
+              <MenuItem value={e}>Level {e}</MenuItem>
+            ))}
+          </Select>
+        </FormControl>
+      </div> */}
       <div
         className="relative bg-slate-300"
-        style={{ width: areaWidth * zoom, height: areaHeight * zoom ,display:'grid',  
-        gridTemplateColumns:" repeat(30, 70px)",
-        gridTemplateRows:" 40px repeat(30, 70px) 40px",
-        border:"1px solid #462921"}}
+        style={{
+          width: areaWidth * zoom,
+          height: areaHeight * zoom,
+          display: "grid",
+          gridTemplateColumns: " repeat(30, 70px)",
+          gridTemplateRows: " 40px repeat(30, 70px) 40px",
+          border: "1px solid #462921",
+        }}
       >
         <img
           src="https://clipart-library.com/img/1565435.png"
@@ -245,7 +283,7 @@ const Walls=[3,9,23]
             height: zoom,
           }}
         />
- 
+
         {body.map((segment, index) => (
           <div
             className="absolute bg-green-800  "
@@ -262,7 +300,22 @@ const Walls=[3,9,23]
             key={index}
           ></div>
         ))}
-       
+        {bodyT.map((segment, index) => (
+          <div
+            className="absolute bg-sky-800  "
+            style={{
+              top: segment.top * zoom,
+              left: segment.left * zoom,
+              width: zoom,
+              height: zoom,
+              // backgroundImage: `url('${segment.img}')`,
+              // backgroundPosition: 'center',
+              // backgroundRepeat: 'no-repeat',
+              // backgroundSize:'cover'
+            }}
+            key={index}
+          ></div>
+        ))}
       </div>
     </main>
   );

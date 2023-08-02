@@ -8,7 +8,7 @@ import Ionicons from "@expo/vector-icons/Ionicons";
 
 import * as MediaLibrary from "expo-media-library";
 
-export default function takePicture() {
+export default function CameraScreen() {
   const [type, setType] = useState(CameraType.back);
 
   const [blackBgr, setBlackBgr] = useState(false);

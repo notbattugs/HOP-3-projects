@@ -13,8 +13,8 @@ import { ClerkProvider, SignedIn, SignedOut } from "@clerk/clerk-expo";
 import LoginFlow from "./components/LoginFlow";
 import Profile from "./components/Profile";
 import UpdateUser from "./components/UpdateUser";
-import takePicture from "./components/CameraTakePicture";
-import SelectPicture from "./components/SelectPicture";
+import CameraScreen from "./components/CameraScreen";
+import MediaScreen from "./components/MediaScreen";
 import Ionicons from "@expo/vector-icons/Ionicons";
 
 const Drawer = createDrawerNavigator();
@@ -46,11 +46,11 @@ const Tab = createBottomTabNavigator();
 function TabScreen() {
   return (
     <Tab.Navigator>
-      <Tab.Screen
+      {/* <Tab.Screen
         name="Home"
         component={HomeScreen}
         options={{ headerShown: false }}
-      />
+      /> */}
       {/* <Tab.Screen
         name="Profile"
         component={Profile}
@@ -63,12 +63,12 @@ function TabScreen() {
       /> */}
       <Tab.Screen
         name="Camera"
-        component={takePicture}
+        component={CameraScreen}
         options={{ headerShown: false }}
       />
       <Tab.Screen
         name="Gallery"
-        component={SelectPicture}
+        component={MediaScreen}
         options={{ headerShown: false }}
       />
     </Tab.Navigator>

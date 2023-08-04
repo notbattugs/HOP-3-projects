@@ -16,6 +16,8 @@ import UpdateUser from "./components/UpdateUser";
 import CameraScreen from "./components/CameraScreen";
 import MediaScreen from "./components/MediaScreen";
 import Ionicons from "@expo/vector-icons/Ionicons";
+import { Cloudinary } from "@cloudinary/url-gen";
+import { sepia } from "@cloudinary/url-gen/actions/effect";
 
 const Drawer = createDrawerNavigator();
 
@@ -74,10 +76,26 @@ function TabScreen() {
     </Tab.Navigator>
   );
 }
-const REACT_APP_CLERK_PUBLISHABLE_KEY =
-  "pk_test_Y29udGVudC1jaGlwbXVuay02My5jbGVyay5hY2NvdW50cy5kZXYk";
+// const REACT_APP_CLERK_PUBLISHABLE_KEY =
+//   "pk_test_Y29udGVudC1jaGlwbXVuay02My5jbGVyay5hY2NvdW50cy5kZXYk";
 
 function App() {
+  // const cld = new Cloudinary({
+  //   cloud: {
+  //     cloudName: "dysht01ld",
+  //     apiKey: "781116154539338",
+  //     apiSecret: "z-bbE_PfqTkUtIDzpsB2EYbqYAU",
+  //   },
+  // });
+  // Cloudinary.v2.uploader.upload(
+  //   "https://upload.wikimedia.org/wikipedia/commons/a/ae/Olympic_flag.jpg",
+  //   { public_id: "olympic_flag" },
+  //   function (error, result) {
+  //     console.log(result);
+  //   }
+  // );
+  // const myImage = cld.image("front_face");
+  // myImage.effect(sepia());
   return (
     <>
       {/* <ClerkProvider publishableKey={REACT_APP_CLERK_PUBLISHABLE_KEY}>
@@ -106,6 +124,12 @@ function App() {
       <NavigationContainer>
         <Draw></Draw>
       </NavigationContainer>
+      {/* <SafeAreaView style={{ flex: 1, justifyContent: "center" }}>
+        <AdvancedImage
+          cldImg={myImage}
+          style={{ width: 200, height: 200, alignSelf: "center" }}
+        />
+      </SafeAreaView> */}
     </>
   );
 }

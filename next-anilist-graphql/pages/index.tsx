@@ -45,7 +45,7 @@ export default function Home() {
       
       <div style={{display:'grid',gridTemplateColumns:'1fr 1fr 1fr 1fr 1fr 1fr 1fr' ,gridGap:'20px',overflow:'scroll'}}>
         {data.countries.map((country: any) => (
-         <a href={`/${country.code}`}>
+         <a href={`/${country.code}`} style={{textDecoration:'none'}}>
            <div style={{ width:'auto',border:'2px solid black' ,display:'flex' ,flexDirection:'column', justifyContent:'center',alignItems:'center' ,padding:'20px',borderRadius:'10px'}}>
             <p style={{ fontSize: 100, color: "#000000" }}>{country.emoji}</p>
             <br />

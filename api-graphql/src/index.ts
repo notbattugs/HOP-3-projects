@@ -3,19 +3,21 @@ import { startStandaloneServer } from '@apollo/server/standalone';
 import mongodb from './mongodb.js';
 const typeDefs = `#graphql
 type Post {
+  name:String
   text:String
   images:[String]
   CreatedAt:String
   userId:String
 }
 input PostInput{
+  name:String
   text:String
   images:[String]
 }
 
 type Query {
-    getPosts: [Post]
-    getPostDetail:Post
+  getPosts: [Post]
+  getPostDetail:Post
 }
 
 type Mutation{
@@ -24,7 +26,7 @@ type Mutation{
     deletePost(id:ID!):ID
 }
 `;
-// The ApolloServer constructor requires two parameters: your schema
+
 const resolvers = {
   Query: {
     getPosts: () => {
@@ -52,7 +54,7 @@ const resolvers = {
     },
   },
 };
-// definition and your set of resolvers.
+
 const server = new ApolloServer({
   typeDefs,
   resolvers,

@@ -12,8 +12,6 @@ const CREATE_POST = gql`
 export default function Home() {
   const [createPost, { data, loading, error }] = useMutation(CREATE_POST);
 
-  console.log({ data, loading, error });
-
   return (
     <div>
       <button

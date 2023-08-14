@@ -2,7 +2,14 @@ import { Camera, CameraType } from "expo-camera";
 
 import { useRef, useState } from "react";
 
-import { Button, StyleSheet, Text, TouchableOpacity, View } from "react-native";
+import {
+  Button,
+  StyleSheet,
+  Text,
+  TouchableOpacity,
+  View,
+  Animated,
+} from "react-native";
 
 import Ionicons from "@expo/vector-icons/Ionicons";
 
@@ -16,6 +23,26 @@ export default function CameraScreen() {
   const [permission, requestPermission] = Camera.useCameraPermissions();
 
   const [permissionResponse, RequestPermission] = MediaLibrary.usePermissions();
+
+  const [fadein, setFadeIn] = useState(false);
+  const fadeAnim = useRef(new Animated.Value(100)).current;
+
+  const fadeIn = () => {
+    setFadeIn(true);
+    Animated.timing(fadeAnim, {
+      toValue: 200,
+      duration: 500,
+      useNativeDriver: false,
+    }).start();
+  };
+  const fadeOut = () => {
+    setFadeIn(false);
+    Animated.timing(fadeAnim, {
+      toValue: 100,
+      duration: 500,
+      useNativeDriver: false,
+    }).start();
+  };
 
   const cameraRef = useRef();
 
@@ -67,7 +94,7 @@ export default function CameraScreen() {
         <View
           style={{
             position: "absolute",
-            backgroundColor: "black",
+            backgroundColor: "rgba(255,255,255,0.4)",
             top: 0,
             right: 0,
             left: 0,
@@ -90,6 +117,32 @@ export default function CameraScreen() {
           <TouchableOpacity style={styles.button} onPress={toggleCameraType}>
             <Ionicons name="camera-reverse" size={50} color="white" />
           </TouchableOpacity>
+
+          <TouchableOpacity
+            style={{
+              flex: 1,
+              alignSelf: "flex-end",
+              alignItems: "center",
+              width: "auto",
+              height: "100%",
+              marginBottom: 10,
+            }}
+            onPress={() => (fadeAnim ? fadeOut() : fadeIn())}
+            activeOpacity={0.8}
+          >
+            <Animated.View
+              style={{
+                borderRadius: 20,
+                backgroundColor: "rgba(255,255,255,0.4)",
+                width: fadeAnim,
+                padding: 20,
+                margin: 20,
+                alignItems: "center",
+              }}
+            >
+              <Text style={{ fontSize: 28, color: "white" }}>4:3</Text>
+            </Animated.View>
+          </TouchableOpacity>
         </View>
       </Camera>
     </View>
@@ -99,7 +152,6 @@ export default function CameraScreen() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-
     justifyContent: "center",
   },
 
@@ -109,7 +161,7 @@ const styles = StyleSheet.create({
 
   buttonContainer: {
     width: "100%",
-    height: 50,
+    height: 200,
     flex: 1,
     flexDirection: "row",
     // backgroundColor: "rgba(0.5,0.5,0.5,0.5)",
@@ -120,9 +172,7 @@ const styles = StyleSheet.create({
   },
   button: {
     flex: 1,
-
     alignSelf: "flex-end",
-
     alignItems: "center",
   },
 
